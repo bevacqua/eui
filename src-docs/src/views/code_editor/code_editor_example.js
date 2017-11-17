@@ -30,13 +30,11 @@ export default props => (
       text={
         <div>
           <p>
-            The <EuiCode>EuiCodeEditor</EuiCode> component is a wrapper around <EuiCode>react-ace</EuiCode> (which
-            itself wraps the ACE code editor), that adds an accessible keyboard mode
-            to it. You should always use this component instead of <EuiCode>AceEditor</EuiCode>.
+            The <EuiCode>EuiCodeEditor</EuiCode> component is a wrapper around <EuiCode>codemirror</EuiCode>.
           </p>
           <p>
             All parameters, that you specify are passed down to the
-            underlying <EuiCode>AceEditor</EuiCode> component.
+            underlying <EuiCode>CodeMirror</EuiCode> component.
           </p>
         </div>
       }

@@ -39,6 +39,10 @@ export {
 } from './code_editor';
 
 export {
+  EuiCodeEditorLegacy,
+} from './code_editor_legacy';
+
+export {
   EuiContextMenu,
   EuiContextMenuPanel,
   EuiContextMenuItem,

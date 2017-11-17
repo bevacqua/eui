@@ -1,93 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import AceEditor from 'react-ace';
 
-import { EuiKeyboardAccessible } from '..';
-import { htmlIdGenerator, keyCodes } from '../../services';
+import CodeMirror from './CodeMirror';
+
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/yaml/yaml';
+
+const languages = {
+  json: `application/json`,
+  yaml: `text/x-yaml`,
+  text: `text/plain`
+};
+
+const themes = {
+  light: `neat`,
+  dark: `dracula`
+};
+
+const COLOR_NAMES = Object.keys(themes);
 
 export class EuiCodeEditor extends Component {
-
-  state = {
-    isHintActive: true
-  };
-
-  idGenerator = htmlIdGenerator();
-
-  aceEditorRef = (aceEditor) => {
-    if (aceEditor) {
-      this.aceEditor = aceEditor;
-      aceEditor.editor.textInput.getElement().tabIndex = -1;
-      aceEditor.editor.textInput.getElement().addEventListener('keydown', this.onKeydownAce);
+  codeMirrorRef = (codeMirror) => {
+    if (codeMirror) {
+      this.codeMirror = codeMirror;
     }
   };
-
-  onKeydownAce = (ev) => {
-    if (ev.keyCode === keyCodes.ESCAPE) {
-      ev.preventDefault();
-      ev.stopPropagation();
-      this.stopEditing();
-      this.editorHint.focus();
-    }
-  }
-
-  onBlurAce = (...args) => {
-    this.stopEditing();
-    if (this.props.onBlur) {
-      this.props.onBlur(...args);
-    }
-  };
-
-  startEditing = () => {
-    this.setState({ isHintActive: false });
-    this.aceEditor.editor.textInput.focus();
-  }
-
-  stopEditing() {
-    this.setState({ isHintActive: true });
-  }
 
   render() {
     const {
-      width,
-      height,
+      color,
+      language,
       onBlur, // eslint-disable-line no-unused-vars
       ...rest
     } = this.props;
 
-    const classes = classNames('euiCodeEditorKeyboardHint', {
-      'euiCodeEditorKeyboardHint-isInactive': !this.state.isHintActive
-    });
+    const codeMirrorOptions = {
+      mode: languages[language] || language,
+      theme: themes[color],
+      indentUnit: 2,
+      tabSize: 2,
+      smartIndent: true,
+      lineNumbers: false,
+      electricChars: true
+    };
 
     return (
-      <div
-        className="euiCodeEditorWrapper"
-        style={{ width, height }}
-      >
-        <EuiKeyboardAccessible>
-          <div
-            className={classes}
-            id={this.idGenerator('codeEditor')}
-            ref={(hint) => { this.editorHint = hint; }}
-            onClick={this.startEditing}
-            data-test-subj="codeEditorHint"
-          >
-            <p className="euiText euiVerticalRhythmSmall">
-              Press Enter to start editing.
-            </p>
-
-            <p className="euiText euiVerticalRhythmSmall">
-              When you&rsquo;re done, press Escape to stop editing.
-            </p>
-          </div>
-        </EuiKeyboardAccessible>
-
-        <AceEditor
-          ref={this.aceEditorRef}
-          width={width}
-          height={height}
-          onBlur={this.onBlurAce}
-          {...rest}
+      <div className="euiCodeEditorWrapper">
+        <CodeMirror
+          ref={this.codeMirrorRef}
+          options={codeMirrorOptions}
+          {... rest}
         />
       </div>
     );
@@ -95,6 +57,7 @@ export class EuiCodeEditor extends Component {
 }
 
 EuiCodeEditor.propTypes = {
+  color: PropTypes.oneOf(COLOR_NAMES),
   width: PropTypes.string,
   height: PropTypes.string,
   onBlur: PropTypes.func,

@@ -21,6 +21,7 @@
   "dependencies": {
     "brace": "0.10.0",
     "classnames": "2.2.5",
+    "codemirror": "5.31.0",
     "core-js": "2.5.1",
     "focus-trap-react": "3.0.4",
     "html": "1.0.0",

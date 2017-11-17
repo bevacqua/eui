@@ -32,6 +32,9 @@ import CodeExample
 import CodeEditorExample
   from '../../views/code_editor/code_editor_example';
 
+import CodeEditorLegacyExample
+  from '../../views/code_editor_legacy/code_editor_legacy_example';
+
 import ContextMenuExample
   from '../../views/context_menu/context_menu_example';
 
@@ -140,6 +143,9 @@ const components = [{
 }, {
   name: 'CodeEditor',
   component: CodeEditorExample,
+}, {
+  name: 'CodeEditorLegacy',
+  component: CodeEditorLegacyExample,
 }, {
   name: 'ContextMenu',
   component: ContextMenuExample,

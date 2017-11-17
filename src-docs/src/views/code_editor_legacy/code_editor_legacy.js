@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import 'codemirror/mode/javascript/javascript';
+import 'brace/mode/javascript';
 
 import {
-  EuiCodeEditor,
+  EuiCodeEditorLegacy,
   EuiSpacer,
 } from '../../../../src/components';
 
@@ -19,7 +19,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <EuiCodeEditor
+        <EuiCodeEditorLegacy
           language="javascript"
           color="light"
           width="100%"
@@ -31,7 +31,7 @@ export default class extends Component {
 
         <EuiSpacer />
 
-        <EuiCodeEditor
+        <EuiCodeEditorLegacy
           language="javascript"
           color="dark"
           width="100%"
